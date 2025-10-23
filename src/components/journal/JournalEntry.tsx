@@ -5,6 +5,7 @@ import Card from '../../ui/Card';
 import Button from '../../ui/Button';
 import HStack from '../../layout/HStack';
 import { PlantDetails, Screen as ScreenType } from '../../lib/types';
+import { toCsv } from '../../lib/csv';
 
 const STANDARDS = [
   'NGSS: MS-LS2-2',
@@ -56,16 +57,18 @@ const JournalEntry: React.FC<JournalEntryProps> = ({ plant, addJournalEntry, go 
 
   const canSave = notes.trim().length > 0 && plantName.trim().length > 0;
 
-  const csvContent = useMemo(() => {
-    const header = ['Plant Name', 'Route', 'Notes', 'Standards'].join(',');
-    const row = [
-      `"${plantName.replace(/"/g, '""')}"`,
-      route,
-      `"${notes.replace(/"/g, '""')}"`,
-      `"${standards.join('; ').replace(/"/g, '""')}"`
-    ].join(',');
-    return `${header}\n${row}`;
-  }, [notes, plantName, route, standards]);
+  const csvContent = useMemo(
+    () =>
+      toCsv([
+        {
+          'Plant Name': plantName,
+          Route: route,
+          Notes: notes,
+          Standards: standards.join('; ')
+        }
+      ]),
+    [notes, plantName, route, standards]
+  );
 
   const handleToggleStandard = (standard: string) => {
     setStandards((prev) =>
