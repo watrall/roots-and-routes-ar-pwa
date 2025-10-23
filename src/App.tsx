@@ -27,6 +27,10 @@ import JournalList from './components/journal/JournalList';
 import JournalEntry from './components/journal/JournalEntry';
 import Settings from './components/Settings';
 import EducatorDashboard from './components/EducatorDashboard';
+import ErrorCamera from './components/errors/ErrorCamera';
+import OfflineScreen from './components/errors/Offline';
+import NoPlant from './components/errors/NoPlant';
+import MarketingPoster from './components/MarketingPoster';
 
 type ThemeMode = 'light' | 'dark';
 
@@ -205,6 +209,7 @@ const App: React.FC = () => {
   const [journal, setJournal] = useState<JournalEntryType[]>([]);
   const [currentPlant, setCurrentPlant] = useState<PlantDetails | null>(null);
   const [theme, setTheme] = useState<ThemeMode>('light');
+  const [isOffline, setIsOffline] = useState<boolean>(false);
 
   const setAccessibilityState = useCallback((settings: AccessibilitySettings) => {
     setAccessibility(settings);
@@ -326,6 +331,21 @@ const App: React.FC = () => {
       return;
     }
 
+    const updateStatus = () => setIsOffline(!window.navigator.onLine);
+    updateStatus();
+    window.addEventListener('online', updateStatus);
+    window.addEventListener('offline', updateStatus);
+    return () => {
+      window.removeEventListener('online', updateStatus);
+      window.removeEventListener('offline', updateStatus);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
     try {
       localStorage.setItem(STORAGE_KEYS.camera, cameraGranted ? 'true' : 'false');
     } catch (error) {
@@ -388,6 +408,16 @@ const App: React.FC = () => {
     },
     []
   );
+
+  const handleRetryConnection = useCallback(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+    setIsOffline(!window.navigator.onLine);
+    if (window.navigator.onLine) {
+      go('home');
+    }
+  }, [go]);
 
   const screenContext = useMemo<ScreenContext>(
     () => ({
@@ -481,6 +511,19 @@ const App: React.FC = () => {
               addJournalEntry={addJournalEntry}
             />
           );
+        case 'error-camera':
+          return <ErrorCamera go={go} />;
+        case 'offline':
+          return (
+            <OfflineScreen
+              go={go}
+              retry={handleRetryConnection}
+            />
+          );
+        case 'no-plant':
+          return <NoPlant go={go} />;
+        case 'poster':
+          return <MarketingPoster />;
         case 'journal-list':
           return (
             <JournalList
@@ -542,6 +585,7 @@ const App: React.FC = () => {
       addJournalEntry,
       journal,
       resetApp,
+      handleRetryConnection,
       theme,
       screenContext,
       setAccessibilityState,
@@ -555,6 +599,42 @@ const App: React.FC = () => {
 
   return (
     <>
+      {isOffline && (
+        <div
+          role="status"
+          aria-live="polite"
+          style={{
+            position: 'fixed',
+            top: 'var(--space-3)',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            background: 'var(--color-warning)',
+            color: 'var(--color-text-primary)',
+            padding: 'var(--space-2) var(--space-3)',
+            borderRadius: 'var(--radius-base)',
+            boxShadow: 'var(--shadow-card)',
+            zIndex: 1000,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 'var(--space-2)'
+          }}
+        >
+          <span>Offline mode — some features are limited.</span>
+          <button
+            type="button"
+            onClick={() => go('offline')}
+            style={{
+              background: 'transparent',
+              border: '1px solid var(--color-border)',
+              borderRadius: 'var(--radius-full)',
+              padding: '0 var(--space-2)',
+              cursor: 'pointer'
+            }}
+          >
+            Offline tips
+          </button>
+        </div>
+      )}
       {currentView}
       {import.meta.env.DEV && (
         <aside
