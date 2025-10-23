@@ -45,16 +45,13 @@ const Tabs: React.FC<TabsProps> = ({ tabs, activeId, onChange, renderPanel }) =>
     setFocusId(activeId);
   }, [activeId]);
 
-  const focusTab = useCallback(
-    (id: TabOption['id']) => {
-      const ref = tabRefs.current[id];
-      if (ref) {
-        ref.focus();
-        setFocusId(id);
-      }
-    },
-    []
-  );
+  const focusTab = useCallback((id: TabOption['id']) => {
+    const ref = tabRefs.current[id];
+    if (ref) {
+      ref.focus();
+      setFocusId(id);
+    }
+  }, []);
 
   const orderedTabs = useMemo(() => tabs, [tabs]);
 
@@ -75,7 +72,7 @@ const Tabs: React.FC<TabsProps> = ({ tabs, activeId, onChange, renderPanel }) =>
       const nextTab = orderedTabs[nextIndex];
       focusTab(nextTab.id);
     },
-    [focusId, orderedTabs, focusTab]
+    [focusId, orderedTabs, focusTab],
   );
 
   return (
@@ -90,7 +87,7 @@ const Tabs: React.FC<TabsProps> = ({ tabs, activeId, onChange, renderPanel }) =>
           gap: 'var(--space-2)',
           padding: 'var(--space-2)',
           background: 'var(--color-surface-muted)',
-          borderRadius: 'calc(var(--radius-base) + 4px)'
+          borderRadius: 'calc(var(--radius-base) + 4px)',
         }}
       >
         {orderedTabs.map((tab) => {
@@ -123,7 +120,7 @@ const Tabs: React.FC<TabsProps> = ({ tabs, activeId, onChange, renderPanel }) =>
                 fontWeight: isActive ? 'var(--font-weight-bold)' : 'var(--font-weight-medium)',
                 color: 'var(--color-text-primary)',
                 boxShadow: isActive ? 'var(--shadow-soft)' : 'none',
-                transition: `background var(--transition-duration-fast) var(--transition-ease)`
+                transition: `background var(--transition-duration-fast) var(--transition-ease)`,
               }}
             >
               <span>{tab.label}</span>

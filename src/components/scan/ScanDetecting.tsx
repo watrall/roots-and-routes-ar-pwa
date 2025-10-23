@@ -33,7 +33,7 @@ const ScanDetecting: React.FC<ScanDetectingProps> = ({ go, setCurrentPlant }) =>
         culturalStory:
           'Coffee cultivation spread through trade routes, shaping cultural rituals from Ethiopia to the Arabian Peninsula and beyond.',
         stemInfo:
-          'Leaves contain chlorogenic acids; berries house seeds rich in caffeine, supporting pollinators and human economies.'
+          'Leaves contain chlorogenic acids; berries house seeds rich in caffeine, supporting pollinators and human economies.',
       };
 
       setCurrentPlant(mockPlant);
@@ -58,7 +58,7 @@ const ScanDetecting: React.FC<ScanDetectingProps> = ({ go, setCurrentPlant }) =>
               borderRadius: 'var(--radius-full)',
               border: '6px solid rgba(242, 183, 5, 0.2)',
               borderTopColor: 'var(--color-accent-gold)',
-              animation: 'spin 1.2s linear infinite'
+              animation: 'spin 1.2s linear infinite',
             }}
           />
           <p style={{ margin: 0 }}>Analyzing leaf structure, color, and venation patterns…</p>

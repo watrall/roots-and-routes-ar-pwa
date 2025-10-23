@@ -9,7 +9,7 @@ describe('toCsv', () => {
   test('serializes rows with inferred headers', () => {
     const csv = toCsv([
       { id: 1, name: 'Coffee', note: 'Origin: Ethiopia' },
-      { id: 2, name: 'Maize', extra: 'Staple crop' }
+      { id: 2, name: 'Maize', extra: 'Staple crop' },
     ]);
 
     expect(csv.split('\n')[0]).toBe('id,name,note,extra');

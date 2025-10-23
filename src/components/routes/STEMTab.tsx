@@ -10,7 +10,7 @@ import { PlantDetails, Screen as ScreenType } from '../../lib/types';
 
 const STEM_TABS = [
   { id: 'cultural' as const, label: 'Cultural Journey', description: 'Stories & routes' },
-  { id: 'stem' as const, label: 'STEM Insights', description: 'Science & systems' }
+  { id: 'stem' as const, label: 'STEM Insights', description: 'Science & systems' },
 ];
 
 export type STEMTabProps = {
@@ -38,7 +38,7 @@ const STEMTab: React.FC<STEMTabProps> = ({ plant, go }) => {
             background: 'var(--color-dark-green)',
             color: 'var(--color-text-inverse)',
             paddingInline: 'var(--space-3)',
-            paddingBlock: 'var(--space-4)'
+            paddingBlock: 'var(--space-4)',
           }}
         >
           <Stack gap="sm">
@@ -52,12 +52,7 @@ const STEMTab: React.FC<STEMTabProps> = ({ plant, go }) => {
       }
     >
       <Stack gap="lg">
-        <Tabs
-          tabs={STEM_TABS}
-          activeId="stem"
-          onChange={(id) => go(id)}
-          renderPanel={() => null}
-        />
+        <Tabs tabs={STEM_TABS} activeId="stem" onChange={(id) => go(id)} renderPanel={() => null} />
 
         <Card title="Chemical composition" subtitle="Key compounds supporting plant function.">
           <Stack gap="sm">
@@ -77,14 +72,14 @@ const STEMTab: React.FC<STEMTabProps> = ({ plant, go }) => {
             {[
               'Pollinators: bees, butterflies attracted to flowers.',
               'Soil partners: mycorrhizal fungi aiding nutrient uptake.',
-              'Human impact: cultivation practices influencing biodiversity.'
+              'Human impact: cultivation practices influencing biodiversity.',
             ].map((item) => (
               <div
                 key={item}
                 style={{
                   padding: 'var(--space-2)',
                   borderRadius: 'var(--radius-base)',
-                  background: 'rgba(22, 139, 95, 0.08)'
+                  background: 'rgba(22, 139, 95, 0.08)',
                 }}
               >
                 {item}
@@ -123,7 +118,8 @@ const STEMTab: React.FC<STEMTabProps> = ({ plant, go }) => {
         <Card title="Simulation prep">
           <Stack gap="sm">
             <p style={{ margin: 0 }}>
-              Adjust climate variables to forecast crop yield and resilience under different scenarios.
+              Adjust climate variables to forecast crop yield and resilience under different
+              scenarios.
             </p>
             <Button size="lg" onClick={() => go('simulation')}>
               Open Climate Simulation

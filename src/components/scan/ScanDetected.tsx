@@ -39,10 +39,7 @@ const ScanDetected: React.FC<ScanDetectedProps> = ({ go, currentPlant }) => {
       description="Choose a pathway to explore cultural stories or STEM insights."
     >
       <Stack gap="lg">
-        <Card
-          title={currentPlant.commonName ?? currentPlant.name}
-          subtitle={currentPlant.name}
-        >
+        <Card title={currentPlant.commonName ?? currentPlant.name} subtitle={currentPlant.name}>
           <Stack gap="sm">
             <p style={{ margin: 0 }}>
               <strong>Family:</strong> {currentPlant.family ?? 'Unknown'}

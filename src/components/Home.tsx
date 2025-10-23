@@ -44,14 +44,14 @@ const QUICK_ACTIONS: (go: (screen: ScreenType) => void) => QuickAction[] = (go) 
     label: 'Start Exploring (AR Scan)',
     description: 'Identify nearby plants and launch immersive stories.',
     icon: <Icon name="scan" />,
-    onClick: () => go('scan-idle')
+    onClick: () => go('scan-idle'),
   },
   {
     label: 'Learn by Topic',
     description: 'Jump straight into cultural or STEM journeys.',
     icon: <Icon name="leaf" />,
-    onClick: () => go('cultural')
-  }
+    onClick: () => go('cultural'),
+  },
 ];
 
 const SECONDARY_CARDS: (go: (screen: ScreenType) => void) => Array<{
@@ -64,20 +64,20 @@ const SECONDARY_CARDS: (go: (screen: ScreenType) => void) => Array<{
     title: 'Journal',
     description: 'Capture reflections and photos from today’s explorations.',
     icon: <Icon name="journal" />,
-    action: () => go('journal-list')
+    action: () => go('journal-list'),
   },
   {
     title: 'Settings',
     description: 'Adjust accessibility, themes, and privacy preferences.',
     icon: <Icon name="settings" />,
-    action: () => go('settings')
+    action: () => go('settings'),
   },
   {
     title: 'Educator Mode',
     description: 'Access dashboards, classroom resources, and standards.',
     icon: <Icon name="educator" />,
-    action: () => go('educator')
-  }
+    action: () => go('educator'),
+  },
 ];
 
 const BOTTOM_NAV: Array<{
@@ -88,7 +88,7 @@ const BOTTOM_NAV: Array<{
   { label: 'Home', icon: <Icon name="home" />, screen: 'home' },
   { label: 'Scan', icon: <Icon name="scan" />, screen: 'scan-idle' },
   { label: 'Journal', icon: <Icon name="journal" />, screen: 'journal-list' },
-  { label: 'Settings', icon: <Icon name="settings" />, screen: 'settings' }
+  { label: 'Settings', icon: <Icon name="settings" />, screen: 'settings' },
 ];
 
 /**
@@ -108,16 +108,14 @@ const Home: React.FC<HomeProps> = ({ go, accessibility, updateAccessibility, the
             background: 'var(--color-deep-green)',
             color: 'var(--color-text-inverse)',
             paddingInline: 'var(--space-3)',
-            paddingBlock: 'var(--space-4)'
+            paddingBlock: 'var(--space-4)',
           }}
         >
           <Container width="md" padding="none">
             <HStack justify="space-between" align="center">
               <Stack gap="xs">
                 <span style={{ opacity: 0.8 }}>Welcome back</span>
-                <h2 style={{ margin: 0, color: 'var(--color-text-inverse)' }}>
-                  Roots & Routes
-                </h2>
+                <h2 style={{ margin: 0, color: 'var(--color-text-inverse)' }}>Roots & Routes</h2>
               </Stack>
               <Button
                 variant="outline"
@@ -145,8 +143,12 @@ const Home: React.FC<HomeProps> = ({ go, accessibility, updateAccessibility, the
                 padding: 'var(--space-2)',
                 background: 'transparent',
                 border: 'none',
-                color: item.screen === 'home' ? 'var(--color-light-green)' : 'var(--color-text-secondary)',
-                fontWeight: item.screen === 'home' ? 'var(--font-weight-bold)' : 'var(--font-weight-regular)'
+                color:
+                  item.screen === 'home'
+                    ? 'var(--color-light-green)'
+                    : 'var(--color-text-secondary)',
+                fontWeight:
+                  item.screen === 'home' ? 'var(--font-weight-bold)' : 'var(--font-weight-regular)',
               }}
             >
               {item.icon}
@@ -169,7 +171,7 @@ const Home: React.FC<HomeProps> = ({ go, accessibility, updateAccessibility, the
           style={{
             display: 'grid',
             gap: 'var(--space-3)',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))'
+            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
           }}
         >
           {quickActions.map((action) => (
@@ -190,7 +192,7 @@ const Home: React.FC<HomeProps> = ({ go, accessibility, updateAccessibility, the
                   borderRadius: 'var(--radius-full)',
                   background: 'rgba(22, 139, 95, 0.12)',
                   display: 'grid',
-                  placeItems: 'center'
+                  placeItems: 'center',
                 }}
                 aria-hidden
               >
@@ -205,7 +207,7 @@ const Home: React.FC<HomeProps> = ({ go, accessibility, updateAccessibility, the
           style={{
             display: 'grid',
             gap: 'var(--space-3)',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))'
+            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
           }}
         >
           {secondaryCards.map((card) => (
@@ -226,7 +228,7 @@ const Home: React.FC<HomeProps> = ({ go, accessibility, updateAccessibility, the
                   borderRadius: 'var(--radius-full)',
                   background: 'rgba(5, 40, 33, 0.08)',
                   display: 'grid',
-                  placeItems: 'center'
+                  placeItems: 'center',
                 }}
                 aria-hidden
               >

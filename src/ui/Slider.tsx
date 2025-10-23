@@ -46,7 +46,7 @@ const Slider: React.FC<SliderProps> = ({
   step = 1,
   onChange,
   description,
-  valueFormatter
+  valueFormatter,
 }) => {
   const id = useId();
   const descriptionId = description ? `${id}-description` : undefined;
@@ -58,7 +58,7 @@ const Slider: React.FC<SliderProps> = ({
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          marginBottom: 'var(--space-2)'
+          marginBottom: 'var(--space-2)',
         }}
       >
         <span style={{ fontWeight: 'var(--font-weight-medium)' }}>{label}</span>
@@ -87,7 +87,7 @@ const Slider: React.FC<SliderProps> = ({
         style={{
           width: '100%',
           accentColor: 'var(--color-light-green)',
-          height: '44px'
+          height: '44px',
         }}
       />
     </label>

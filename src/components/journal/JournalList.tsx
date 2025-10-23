@@ -20,7 +20,7 @@ export type JournalListProps = {
 
 const ROUTE_LABEL: Record<JournalEntryType['route'], string> = {
   cultural: 'Cultural',
-  stem: 'STEM'
+  stem: 'STEM',
 };
 
 /**
@@ -35,35 +35,19 @@ const JournalList: React.FC<JournalListProps> = ({ entries, go }) => {
       description="Capture reflections, photos, and standards alignment from each plant exploration."
       bottomNav={
         <HStack justify="space-between" wrap>
-          <button
-            type="button"
-            onClick={() => go('home')}
-            style={navButtonStyle(false)}
-          >
+          <button type="button" onClick={() => go('home')} style={navButtonStyle(false)}>
             <Icon name="home" />
             <span>Home</span>
           </button>
-          <button
-            type="button"
-            onClick={() => go('scan-idle')}
-            style={navButtonStyle(false)}
-          >
+          <button type="button" onClick={() => go('scan-idle')} style={navButtonStyle(false)}>
             <Icon name="scan" />
             <span>Scan</span>
           </button>
-          <button
-            type="button"
-            onClick={() => go('journal-list')}
-            style={navButtonStyle(true)}
-          >
+          <button type="button" onClick={() => go('journal-list')} style={navButtonStyle(true)}>
             <Icon name="journal" />
             <span>Journal</span>
           </button>
-          <button
-            type="button"
-            onClick={() => go('settings')}
-            style={navButtonStyle(false)}
-          >
+          <button type="button" onClick={() => go('settings')} style={navButtonStyle(false)}>
             <Icon name="settings" />
             <span>Settings</span>
           </button>
@@ -75,15 +59,11 @@ const JournalList: React.FC<JournalListProps> = ({ entries, go }) => {
           <Card
             title="No entries yet"
             subtitle="Start exploring to document cultural stories or STEM insights."
-            actions={
-              <Button onClick={() => go('journal-entry')}>
-                New Entry
-              </Button>
-            }
+            actions={<Button onClick={() => go('journal-entry')}>New Entry</Button>}
           >
             <p style={{ margin: 0 }}>
-              Journals store locally so you can reflect even when offline. Capture observations after
-              each scan or simulation.
+              Journals store locally so you can reflect even when offline. Capture observations
+              after each scan or simulation.
             </p>
           </Card>
         )}
@@ -112,7 +92,7 @@ const JournalList: React.FC<JournalListProps> = ({ entries, go }) => {
                             padding: 'var(--space-1) var(--space-2)',
                             borderRadius: 'var(--radius-base)',
                             background: 'rgba(22, 139, 95, 0.12)',
-                            color: 'var(--color-dark-green)'
+                            color: 'var(--color-dark-green)',
                           }}
                         >
                           {standard}
@@ -149,7 +129,7 @@ const navButtonStyle = (active: boolean): React.CSSProperties => ({
   background: 'transparent',
   border: 'none',
   color: active ? 'var(--color-light-green)' : 'var(--color-text-secondary)',
-  fontWeight: active ? 'var(--font-weight-bold)' : 'var(--font-weight-regular)'
+  fontWeight: active ? 'var(--font-weight-bold)' : 'var(--font-weight-regular)',
 });
 
 const fabStyle: React.CSSProperties = {
@@ -165,7 +145,7 @@ const fabStyle: React.CSSProperties = {
   border: 'none',
   display: 'grid',
   placeItems: 'center',
-  boxShadow: 'var(--shadow-card)'
+  boxShadow: 'var(--shadow-card)',
 };
 
 export default JournalList;

@@ -1,15 +1,6 @@
 import React, { Dispatch, useCallback, useEffect, useMemo, useState } from 'react';
-import {
-  AccessibilitySettings,
-  JournalEntryType,
-  PlantDetails,
-  Screen
-} from './lib/types';
-import {
-  enableDarkMode,
-  setTextScale,
-  toggleHighContrast
-} from './lib/theme';
+import { AccessibilitySettings, JournalEntryType, PlantDetails, Screen } from './lib/types';
+import { enableDarkMode, setTextScale, toggleHighContrast } from './lib/theme';
 import Welcome from './components/onboarding/Welcome';
 import Permissions from './components/onboarding/Permissions';
 import AccessibilitySetup from './components/onboarding/AccessibilitySetup';
@@ -59,14 +50,14 @@ const DEFAULT_ACCESSIBILITY: AccessibilitySettings = {
   textSize: 'normal',
   highContrast: false,
   reduceMotion: false,
-  narration: false
+  narration: false,
 };
 
 const STORAGE_KEYS = {
   accessibility: 'rr_accessibility',
   theme: 'rr_theme',
   camera: 'rr_camera',
-  journal: 'rr_journal'
+  journal: 'rr_journal',
 } as const;
 
 const ALLOWED_TRANSITIONS: Record<Screen, Screen[]> = {
@@ -89,7 +80,7 @@ const ALLOWED_TRANSITIONS: Record<Screen, Screen[]> = {
     'offline',
     'no-plant',
     'poster',
-    'welcome'
+    'welcome',
   ],
   'scan-idle': ['scan-detecting', 'home', 'error-camera', 'no-plant'],
   'scan-detecting': ['scan-detected', 'scan-idle', 'home'],
@@ -104,7 +95,7 @@ const ALLOWED_TRANSITIONS: Record<Screen, Screen[]> = {
   'error-camera': ['settings', 'home', 'permissions'],
   offline: ['home', 'journal-list', 'journal-entry'],
   'no-plant': ['scan-idle', 'home'],
-  poster: ['home', 'scan-idle']
+  poster: ['home', 'scan-idle'],
 };
 
 const SCREEN_HEADINGS: Record<Screen, string> = {
@@ -126,7 +117,7 @@ const SCREEN_HEADINGS: Record<Screen, string> = {
   'error-camera': 'Camera Access Required',
   offline: 'Offline Mode',
   'no-plant': 'No Plant Detected',
-  poster: 'Roots & Routes Poster'
+  poster: 'Roots & Routes Poster',
 };
 
 const isAccessibilitySettings = (value: unknown): value is AccessibilitySettings => {
@@ -181,11 +172,7 @@ const ScreenPlaceholder: React.FC<ScreenPlaceholderProps> = ({ screen, descripti
             <p style={{ margin: 0 }}>Available routes from this screen:</p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--space-2)' }}>
               {allowedTargets.map((target) => (
-                <Button
-                  key={target}
-                  variant="secondary"
-                  onClick={() => context.go(target)}
-                >
+                <Button key={target} variant="secondary" onClick={() => context.go(target)}>
                   Go to {SCREEN_HEADINGS[target]}
                 </Button>
               ))}
@@ -202,9 +189,7 @@ const ScreenPlaceholder: React.FC<ScreenPlaceholderProps> = ({ screen, descripti
  */
 const App: React.FC = () => {
   const [currentScreen, setCurrentScreen] = useState<Screen>('welcome');
-  const [accessibility, setAccessibility] = useState<AccessibilitySettings>(
-    DEFAULT_ACCESSIBILITY
-  );
+  const [accessibility, setAccessibility] = useState<AccessibilitySettings>(DEFAULT_ACCESSIBILITY);
   const [cameraGranted, setCameraGranted] = useState<boolean>(false);
   const [journal, setJournal] = useState<JournalEntryType[]>([]);
   const [currentPlant, setCurrentPlant] = useState<PlantDetails | null>(null);
@@ -218,7 +203,7 @@ const App: React.FC = () => {
   const updateAccessibility = useCallback((updates: Partial<AccessibilitySettings>) => {
     setAccessibility((prev) => ({
       ...prev,
-      ...updates
+      ...updates,
     }));
   }, []);
 
@@ -246,11 +231,11 @@ const App: React.FC = () => {
         ...prev,
         {
           ...entry,
-          date: new Date().toISOString()
-        }
+          date: new Date().toISOString(),
+        },
       ]);
     },
-    []
+    [],
   );
 
   const resetApp = useCallback(() => {
@@ -390,24 +375,21 @@ const App: React.FC = () => {
     return () => window.cancelAnimationFrame(frame);
   }, [currentScreen]);
 
-  const go = useCallback(
-    (to: Screen): void => {
-      setCurrentScreen((prev) => {
-        if (prev === to) {
-          return prev;
-        }
-
-        const allowed = ALLOWED_TRANSITIONS[prev] ?? [];
-        if (allowed.includes(to)) {
-          return to;
-        }
-
-        console.error(`Navigation from ${prev} to ${to} is not permitted.`);
+  const go = useCallback((to: Screen): void => {
+    setCurrentScreen((prev) => {
+      if (prev === to) {
         return prev;
-      });
-    },
-    []
-  );
+      }
+
+      const allowed = ALLOWED_TRANSITIONS[prev] ?? [];
+      if (allowed.includes(to)) {
+        return to;
+      }
+
+      console.error(`Navigation from ${prev} to ${to} is not permitted.`);
+      return prev;
+    });
+  }, []);
 
   const handleRetryConnection = useCallback(() => {
     if (typeof window === 'undefined') {
@@ -432,7 +414,7 @@ const App: React.FC = () => {
       journal,
       setJournal,
       currentPlant,
-      setCurrentPlant
+      setCurrentPlant,
     }),
     [
       go,
@@ -446,8 +428,8 @@ const App: React.FC = () => {
       journal,
       setJournal,
       currentPlant,
-      setCurrentPlant
-    ]
+      setCurrentPlant,
+    ],
   );
 
   const renderScreen = useCallback(
@@ -456,12 +438,7 @@ const App: React.FC = () => {
         case 'welcome':
           return <Welcome go={go} />;
         case 'permissions':
-          return (
-            <Permissions
-              go={go}
-              setCameraGranted={setCameraPermission}
-            />
-          );
+          return <Permissions go={go} setCameraGranted={setCameraPermission} />;
         case 'accessibility':
           return (
             <AccessibilitySetup
@@ -474,71 +451,30 @@ const App: React.FC = () => {
         case 'privacy':
           return <PrivacyStart go={go} />;
         case 'scan-idle':
-          return (
-            <ScanIdle
-              go={go}
-              cameraGranted={cameraGranted}
-            />
-          );
+          return <ScanIdle go={go} cameraGranted={cameraGranted} />;
         case 'scan-detecting':
-          return (
-            <ScanDetecting
-              go={go}
-              setCurrentPlant={handlePlantDetected}
-            />
-          );
+          return <ScanDetecting go={go} setCurrentPlant={handlePlantDetected} />;
         case 'scan-detected':
-          return (
-            <ScanDetected
-              go={go}
-              currentPlant={currentPlant}
-            />
-          );
+          return <ScanDetected go={go} currentPlant={currentPlant} />;
         case 'cultural':
         case 'stem':
-          return (
-            <PlantView
-              screen={screen}
-              plant={currentPlant}
-              go={go}
-            />
-          );
+          return <PlantView screen={screen} plant={currentPlant} go={go} />;
         case 'simulation':
           return (
-            <TimeShiftSimulation
-              plant={currentPlant}
-              go={go}
-              addJournalEntry={addJournalEntry}
-            />
+            <TimeShiftSimulation plant={currentPlant} go={go} addJournalEntry={addJournalEntry} />
           );
         case 'error-camera':
           return <ErrorCamera go={go} />;
         case 'offline':
-          return (
-            <OfflineScreen
-              go={go}
-              retry={handleRetryConnection}
-            />
-          );
+          return <OfflineScreen go={go} retry={handleRetryConnection} />;
         case 'no-plant':
           return <NoPlant go={go} />;
         case 'poster':
           return <MarketingPoster />;
         case 'journal-list':
-          return (
-            <JournalList
-              entries={journal}
-              go={go}
-            />
-          );
+          return <JournalList entries={journal} go={go} />;
         case 'journal-entry':
-          return (
-            <JournalEntry
-              plant={currentPlant}
-              addJournalEntry={addJournalEntry}
-              go={go}
-            />
-          );
+          return <JournalEntry plant={currentPlant} addJournalEntry={addJournalEntry} go={go} />;
         case 'settings':
           return (
             <Settings
@@ -551,12 +487,7 @@ const App: React.FC = () => {
             />
           );
         case 'educator':
-          return (
-            <EducatorDashboard
-              journal={journal}
-              go={go}
-            />
-          );
+          return <EducatorDashboard journal={journal} go={go} />;
         case 'home':
           return (
             <Home
@@ -568,12 +499,7 @@ const App: React.FC = () => {
             />
           );
         default:
-          return (
-            <ScreenPlaceholder
-              screen={screen}
-              context={screenContext}
-            />
-          );
+          return <ScreenPlaceholder screen={screen} context={screenContext} />;
       }
     },
     [
@@ -591,8 +517,8 @@ const App: React.FC = () => {
       setAccessibilityState,
       updateAccessibility,
       setCameraPermission,
-      setThemeMode
-    ]
+      setThemeMode,
+    ],
   );
 
   const currentView = renderScreen(currentScreen);
@@ -616,7 +542,7 @@ const App: React.FC = () => {
             zIndex: 1000,
             display: 'flex',
             alignItems: 'center',
-            gap: 'var(--space-2)'
+            gap: 'var(--space-2)',
           }}
         >
           <span>Offline mode — some features are limited.</span>
@@ -628,7 +554,7 @@ const App: React.FC = () => {
               border: '1px solid var(--color-border)',
               borderRadius: 'var(--radius-full)',
               padding: '0 var(--space-2)',
-              cursor: 'pointer'
+              cursor: 'pointer',
             }}
           >
             Offline tips
@@ -650,14 +576,14 @@ const App: React.FC = () => {
             fontSize: '0.85rem',
             maxHeight: '50vh',
             overflow: 'auto',
-            border: '1px solid var(--color-border)'
+            border: '1px solid var(--color-border)',
           }}
         >
           <strong>Debug State</strong>
           <pre
             style={{
               margin: 'var(--space-2) 0 0',
-              whiteSpace: 'pre-wrap'
+              whiteSpace: 'pre-wrap',
             }}
           >
             {JSON.stringify(
@@ -667,10 +593,10 @@ const App: React.FC = () => {
                 cameraGranted,
                 theme,
                 journalCount: journal.length,
-                hasCurrentPlant: Boolean(currentPlant)
+                hasCurrentPlant: Boolean(currentPlant),
               },
               null,
-              2
+              2,
             )}
           </pre>
         </aside>

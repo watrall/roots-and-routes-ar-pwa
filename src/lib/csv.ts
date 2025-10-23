@@ -12,14 +12,10 @@ export const toCsv = (rows: CsvRow[]): string => {
     rows.reduce((acc, row) => {
       Object.keys(row).forEach((key) => acc.add(key));
       return acc;
-    }, new Set<string>())
+    }, new Set<string>()),
   );
 
-  const csvRows = rows.map((row) =>
-    headers
-      .map((header) => formatCell(row[header]))
-      .join(',')
-  );
+  const csvRows = rows.map((row) => headers.map((header) => formatCell(row[header])).join(','));
 
   return [headers.join(','), ...csvRows].join('\n');
 };

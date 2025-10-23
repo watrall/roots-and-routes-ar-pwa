@@ -31,7 +31,7 @@ const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({
   alt,
   fallbackSrc,
   className,
-  aspectRatio
+  aspectRatio,
 }) => {
   const [currentSrc, setCurrentSrc] = useState(src);
 
@@ -43,7 +43,7 @@ const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({
         overflow: 'hidden',
         borderRadius: 'var(--radius-base)',
         background: 'var(--color-surface-muted)',
-        aspectRatio
+        aspectRatio,
       }}
     >
       <img

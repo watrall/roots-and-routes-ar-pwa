@@ -58,7 +58,7 @@ const ICON_PATHS: Record<IconName, React.ReactNode> = {
       d="M11 5.1 3.5 18a1 1 0 0 0 .9 1.5h13.2a1 1 0 0 0 .9-1.5L11 5.1zm1 11.9h-2v-2h2zm0-4h-2V11h2z"
       fill="currentColor"
     />
-  )
+  ),
 };
 
 export type IconProps = {

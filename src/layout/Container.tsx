@@ -7,14 +7,14 @@ const WIDTH_MAP: Record<ContainerWidth, string> = {
   sm: 'min(100%, 480px)',
   md: 'min(100%, 720px)',
   lg: 'min(100%, 960px)',
-  full: '100%'
+  full: '100%',
 };
 
 const PADDING_MAP: Record<ContainerPadding, string> = {
   none: '0',
   sm: 'var(--space-3)',
   md: 'var(--space-4)',
-  lg: 'var(--space-5)'
+  lg: 'var(--space-5)',
 };
 
 export type ContainerProps = {
@@ -43,7 +43,7 @@ const Container: React.FC<ContainerProps> = ({
   width = 'md',
   padding = 'md',
   className,
-  children
+  children,
 }) => {
   return (
     <div
@@ -52,7 +52,7 @@ const Container: React.FC<ContainerProps> = ({
         width: '100%',
         maxWidth: WIDTH_MAP[width],
         paddingInline: PADDING_MAP[padding],
-        marginInline: 'auto'
+        marginInline: 'auto',
       }}
     >
       {children}

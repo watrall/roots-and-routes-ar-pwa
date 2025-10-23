@@ -33,10 +33,7 @@ const ScanIdle: React.FC<ScanIdleProps> = ({ go, cameraGranted }) => {
       description="Point the camera at a plant within the frame. We will identify it and connect you to cultural and STEM journeys."
     >
       <Stack gap="lg">
-        <Card
-          title="Camera feed"
-          subtitle="Align a leaf or branch with the guide below."
-        >
+        <Card title="Camera feed" subtitle="Align a leaf or branch with the guide below.">
           <div
             aria-label="Camera preview placeholder"
             style={{
@@ -45,7 +42,7 @@ const ScanIdle: React.FC<ScanIdleProps> = ({ go, cameraGranted }) => {
               height: '320px',
               display: 'grid',
               placeItems: 'center',
-              background: 'rgba(22, 139, 95, 0.05)'
+              background: 'rgba(22, 139, 95, 0.05)',
             }}
           >
             <Icon name="scan" size={56} aria-hidden />

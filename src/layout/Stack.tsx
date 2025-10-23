@@ -7,7 +7,7 @@ const GAP_MAP: Record<StackGap, string> = {
   xs: 'var(--space-1)',
   sm: 'var(--space-2)',
   md: 'var(--space-3)',
-  lg: 'var(--space-4)'
+  lg: 'var(--space-4)',
 };
 
 export type StackProps = {
@@ -46,7 +46,7 @@ const Stack: React.FC<StackProps> = ({
   justify,
   as: Component = 'div',
   className,
-  children
+  children,
 }) => {
   return (
     <Component
@@ -56,7 +56,7 @@ const Stack: React.FC<StackProps> = ({
         flexDirection: 'column',
         alignItems: align,
         justifyContent: justify,
-        gap: GAP_MAP[gap]
+        gap: GAP_MAP[gap],
       }}
     >
       {children}

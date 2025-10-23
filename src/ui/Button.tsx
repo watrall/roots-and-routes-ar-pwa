@@ -6,34 +6,34 @@ export type ButtonSize = 'md' | 'lg';
 const VARIANT_MAP: Record<ButtonVariant, React.CSSProperties> = {
   primary: {
     background: 'var(--color-light-green)',
-    color: 'var(--color-text-inverse)'
+    color: 'var(--color-text-inverse)',
   },
   secondary: {
     background: 'var(--color-surface-muted)',
-    color: 'var(--color-text-primary)'
+    color: 'var(--color-text-primary)',
   },
   outline: {
     background: 'transparent',
     color: 'var(--color-text-primary)',
-    border: '1px solid var(--color-border)'
+    border: '1px solid var(--color-border)',
   },
   destructive: {
     background: 'var(--color-error)',
-    color: 'var(--color-text-inverse)'
-  }
+    color: 'var(--color-text-inverse)',
+  },
 };
 
 const SIZE_MAP: Record<ButtonSize, React.CSSProperties> = {
   md: {
     paddingInline: 'var(--space-3)',
     paddingBlock: 'var(--space-2)',
-    minHeight: '44px'
+    minHeight: '44px',
   },
   lg: {
     paddingInline: 'var(--space-4)',
     paddingBlock: 'var(--space-3)',
-    minHeight: '56px'
-  }
+    minHeight: '56px',
+  },
 };
 
 export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -86,7 +86,7 @@ const Button: React.FC<ButtonProps> = ({
     textDecoration: 'none',
     width: fullWidth ? '100%' : 'auto',
     opacity: disabled ? 0.6 : 1,
-    cursor: disabled ? 'not-allowed' : 'pointer'
+    cursor: disabled ? 'not-allowed' : 'pointer',
   };
 
   const variantStyle = VARIANT_MAP[variant];
@@ -99,7 +99,7 @@ const Button: React.FC<ButtonProps> = ({
         ...baseStyle,
         ...sizeStyle,
         ...variantStyle,
-        ...style
+        ...style,
       }}
       disabled={disabled}
       {...rest}

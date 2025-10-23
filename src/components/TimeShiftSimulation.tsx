@@ -7,7 +7,8 @@ import Button from '../ui/Button';
 import HStack from '../layout/HStack';
 import { PlantDetails, Screen as ScreenType } from '../lib/types';
 
-const formatTemperature = (value: number): string => `${value >= 0 ? '+' : ''}${value.toFixed(1)}°C`;
+const formatTemperature = (value: number): string =>
+  `${value >= 0 ? '+' : ''}${value.toFixed(1)}°C`;
 const formatRainfall = (value: number): string => `${value >= 0 ? '+' : ''}${value.toFixed(0)}%`;
 
 export type TimeShiftSimulationProps = {
@@ -40,7 +41,11 @@ const determineGaugeColor = (yieldScore: number): string => {
 /**
  * Climate time-shift simulation allowing learners to adjust environmental variables.
  */
-const TimeShiftSimulation: React.FC<TimeShiftSimulationProps> = ({ plant, go, addJournalEntry }) => {
+const TimeShiftSimulation: React.FC<TimeShiftSimulationProps> = ({
+  plant,
+  go,
+  addJournalEntry,
+}) => {
   const [temperature, setTemperature] = useState(0);
   const [rainfall, setRainfall] = useState(0);
   const [observation, setObservation] = useState('');
@@ -70,7 +75,7 @@ const TimeShiftSimulation: React.FC<TimeShiftSimulationProps> = ({ plant, go, ad
       plantName: plant.commonName ?? plant.name,
       route: 'stem',
       notes: observation.trim() || `Yield estimate: ${yieldEstimate.toFixed(0)}%.`,
-      standards: ['MS-LS2-2', 'HS-LS4-3']
+      standards: ['MS-LS2-2', 'HS-LS4-3'],
     });
     go('journal-entry');
   };
@@ -83,8 +88,21 @@ const TimeShiftSimulation: React.FC<TimeShiftSimulationProps> = ({ plant, go, ad
       <Stack gap="lg">
         <Card subtitle={`Current yield estimate: ${yieldEstimate.toFixed(0)}%`}>
           <div style={{ display: 'grid', placeItems: 'center', padding: 'var(--space-4)' }}>
-            <svg width="200" height="200" viewBox="0 0 200 200" role="img" aria-label={`Yield estimate ${yieldEstimate.toFixed(0)} percent`}>
-              <circle cx="100" cy="100" r="88" fill="transparent" stroke="rgba(5, 40, 33, 0.1)" strokeWidth="16" />
+            <svg
+              width="200"
+              height="200"
+              viewBox="0 0 200 200"
+              role="img"
+              aria-label={`Yield estimate ${yieldEstimate.toFixed(0)} percent`}
+            >
+              <circle
+                cx="100"
+                cy="100"
+                r="88"
+                fill="transparent"
+                stroke="rgba(5, 40, 33, 0.1)"
+                strokeWidth="16"
+              />
               <circle
                 cx="100"
                 cy="100"
@@ -96,10 +114,23 @@ const TimeShiftSimulation: React.FC<TimeShiftSimulationProps> = ({ plant, go, ad
                 strokeLinecap="round"
                 transform="rotate(-90 100 100)"
               />
-              <text x="100" y="108" textAnchor="middle" fontSize="32" fontWeight="700" fill="var(--color-text-primary)">
+              <text
+                x="100"
+                y="108"
+                textAnchor="middle"
+                fontSize="32"
+                fontWeight="700"
+                fill="var(--color-text-primary)"
+              >
                 {yieldEstimate.toFixed(0)}%
               </text>
-              <text x="100" y="138" textAnchor="middle" fontSize="14" fill="var(--color-text-secondary)">
+              <text
+                x="100"
+                y="138"
+                textAnchor="middle"
+                fontSize="14"
+                fill="var(--color-text-secondary)"
+              >
                 projected yield
               </text>
             </svg>
@@ -144,18 +175,14 @@ const TimeShiftSimulation: React.FC<TimeShiftSimulationProps> = ({ plant, go, ad
                 padding: 'var(--space-2)',
                 borderRadius: 'var(--radius-base)',
                 border: '1px solid var(--color-border)',
-                resize: 'vertical'
+                resize: 'vertical',
               }}
             />
             <HStack gap="sm" wrap>
               <Button variant="outline" onClick={handleReset}>
                 Reset
               </Button>
-              <Button
-                size="lg"
-                disabled={!observation.trim()}
-                onClick={handleRecordObservation}
-              >
+              <Button size="lg" disabled={!observation.trim()} onClick={handleRecordObservation}>
                 Record Observation
               </Button>
             </HStack>

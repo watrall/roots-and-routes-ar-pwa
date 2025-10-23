@@ -33,7 +33,7 @@ export type AccessibilitySetupProps = {
 const AccessibilitySetup: React.FC<AccessibilitySetupProps> = ({
   accessibility,
   updateAccessibility,
-  go
+  go,
 }) => {
   return (
     <Screen
@@ -41,10 +41,7 @@ const AccessibilitySetup: React.FC<AccessibilitySetupProps> = ({
       description="Tune text size, contrast, motion, and narration to match learner needs. You can adjust these anytime in Settings."
     >
       <Stack gap="lg">
-        <Card
-          title="Text size"
-          subtitle="Applies across the experience."
-        >
+        <Card title="Text size" subtitle="Applies across the experience.">
           <HStack gap="sm" wrap>
             {TEXT_SIZE_OPTIONS.map((size) => {
               const isActive = accessibility.textSize === size;
@@ -105,7 +102,7 @@ const labelStyle: React.CSSProperties = {
   padding: 'var(--space-2)',
   borderRadius: 'var(--radius-base)',
   background: 'var(--color-surface-muted)',
-  cursor: 'pointer'
+  cursor: 'pointer',
 };
 
 export default AccessibilitySetup;

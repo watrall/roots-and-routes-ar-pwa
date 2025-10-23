@@ -6,16 +6,16 @@ export type CardTone = 'default' | 'info' | 'warning';
 const TONE_MAP: Record<CardTone, React.CSSProperties> = {
   default: {
     background: 'var(--color-surface-elevated)',
-    border: `1px solid rgba(5, 40, 33, 0.08)`
+    border: `1px solid rgba(5, 40, 33, 0.08)`,
   },
   info: {
     background: 'linear-gradient(135deg, rgba(22, 139, 95, 0.12), rgba(11, 61, 50, 0.08))',
-    border: `1px solid rgba(22, 139, 95, 0.24)`
+    border: `1px solid rgba(22, 139, 95, 0.24)`,
   },
   warning: {
     background: 'linear-gradient(135deg, rgba(242, 183, 5, 0.16), rgba(242, 183, 5, 0.08))',
-    border: `1px solid rgba(242, 183, 5, 0.24)`
-  }
+    border: `1px solid rgba(242, 183, 5, 0.24)`,
+  },
 };
 
 export type CardProps = {
@@ -54,7 +54,7 @@ const Card: React.FC<CardProps> = ({
   children,
   actions,
   tone = 'default',
-  ariaLabel
+  ariaLabel,
 }) => {
   const toneStyle = TONE_MAP[tone];
 
@@ -68,7 +68,7 @@ const Card: React.FC<CardProps> = ({
         display: 'flex',
         flexDirection: 'column',
         gap: 'var(--space-3)',
-        ...toneStyle
+        ...toneStyle,
       }}
     >
       {(title || subtitle) && (
@@ -78,7 +78,7 @@ const Card: React.FC<CardProps> = ({
               style={{
                 margin: 0,
                 fontSize: '1.125rem',
-                color: 'var(--color-text-primary)'
+                color: 'var(--color-text-primary)',
               }}
             >
               {title}
@@ -92,11 +92,7 @@ const Card: React.FC<CardProps> = ({
         </header>
       )}
 
-      {children && (
-        <Stack gap="sm">
-          {children}
-        </Stack>
-      )}
+      {children && <Stack gap="sm">{children}</Stack>}
 
       {actions && (
         <footer
@@ -104,7 +100,7 @@ const Card: React.FC<CardProps> = ({
             marginTop: 'var(--space-2)',
             display: 'flex',
             flexWrap: 'wrap',
-            gap: 'var(--space-2)'
+            gap: 'var(--space-2)',
           }}
         >
           {actions}

@@ -27,7 +27,7 @@ const ErrorCamera: React.FC<ErrorCameraProps> = ({ go }) => {
                 borderRadius: 'var(--radius-full)',
                 background: 'rgba(242, 183, 5, 0.16)',
                 display: 'grid',
-                placeItems: 'center'
+                placeItems: 'center',
               }}
             >
               <Icon name="camera" size={48} />

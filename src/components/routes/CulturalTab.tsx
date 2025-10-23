@@ -10,7 +10,7 @@ import { PlantDetails, Screen as ScreenType } from '../../lib/types';
 
 const CULTURAL_TABS = [
   { id: 'cultural' as const, label: 'Cultural Journey', description: 'Stories & routes' },
-  { id: 'stem' as const, label: 'STEM Insights', description: 'Science & systems' }
+  { id: 'stem' as const, label: 'STEM Insights', description: 'Science & systems' },
 ];
 
 export type CulturalTabProps = {
@@ -38,7 +38,7 @@ const CulturalTab: React.FC<CulturalTabProps> = ({ plant, go }) => {
             background: 'var(--color-deep-green)',
             color: 'var(--color-text-inverse)',
             paddingInline: 'var(--space-3)',
-            paddingBlock: 'var(--space-4)'
+            paddingBlock: 'var(--space-4)',
           }}
         >
           <Stack gap="sm">
@@ -59,10 +59,7 @@ const CulturalTab: React.FC<CulturalTabProps> = ({ plant, go }) => {
           renderPanel={() => null}
         />
 
-        <Card
-          title="Cultural significance"
-          subtitle="How communities interact with this plant."
-        >
+        <Card title="Cultural significance" subtitle="How communities interact with this plant.">
           <Stack gap="sm">
             <p style={{ margin: 0 }}>
               {plant.culturalStory ??
@@ -88,7 +85,7 @@ const CulturalTab: React.FC<CulturalTabProps> = ({ plant, go }) => {
                     padding: 'var(--space-1) var(--space-2)',
                     borderRadius: 'var(--radius-base)',
                     background: 'rgba(242, 183, 5, 0.18)',
-                    color: 'var(--color-dark-green)'
+                    color: 'var(--color-dark-green)',
                   }}
                 >
                   {route}
@@ -104,7 +101,7 @@ const CulturalTab: React.FC<CulturalTabProps> = ({ plant, go }) => {
               style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))',
-                gap: 'var(--space-2)'
+                gap: 'var(--space-2)',
               }}
             >
               {Array.from({ length: 3 }).map((_, index) => (
@@ -115,7 +112,7 @@ const CulturalTab: React.FC<CulturalTabProps> = ({ plant, go }) => {
                     background: 'rgba(11, 61, 50, 0.08)',
                     aspectRatio: '4 / 3',
                     display: 'grid',
-                    placeItems: 'center'
+                    placeItems: 'center',
                   }}
                 >
                   <Icon name="leaf" />
@@ -132,14 +129,17 @@ const CulturalTab: React.FC<CulturalTabProps> = ({ plant, go }) => {
           <Stack gap="sm">
             {[
               { era: '9th century', detail: 'Legend of Kaldi discovering invigorating berries.' },
-              { era: '15th century', detail: 'Monks cultivate coffee for extended prayer sessions.' },
-              { era: '17th century', detail: 'Coffeehouses emerge as hubs for debate and ideas.' }
+              {
+                era: '15th century',
+                detail: 'Monks cultivate coffee for extended prayer sessions.',
+              },
+              { era: '17th century', detail: 'Coffeehouses emerge as hubs for debate and ideas.' },
             ].map((event) => (
               <div
                 key={event.era}
                 style={{
                   padding: 'var(--space-2)',
-                  borderLeft: '3px solid var(--color-accent-gold)'
+                  borderLeft: '3px solid var(--color-accent-gold)',
                 }}
               >
                 <strong>{event.era}</strong>

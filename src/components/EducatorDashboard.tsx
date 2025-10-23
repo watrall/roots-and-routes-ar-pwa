@@ -48,19 +48,24 @@ const EducatorDashboard: React.FC<EducatorDashboardProps> = ({ journal, go }) =>
 
         <Card title="Recent entries">
           <Stack gap="sm">
-            {journal.slice(-5).reverse().map((entry) => (
-              <div key={entry.id} style={recentRowStyle}>
-                <div>
-                  <strong>{entry.plantName}</strong>
-                  <p style={{ margin: 0 }}>{new Date(entry.date).toLocaleString()}</p>
+            {journal
+              .slice(-5)
+              .reverse()
+              .map((entry) => (
+                <div key={entry.id} style={recentRowStyle}>
+                  <div>
+                    <strong>{entry.plantName}</strong>
+                    <p style={{ margin: 0 }}>{new Date(entry.date).toLocaleString()}</p>
+                  </div>
+                  <Button variant="outline" onClick={() => go('journal-entry')}>
+                    View
+                  </Button>
                 </div>
-                <Button variant="outline" onClick={() => go('journal-entry')}>
-                  View
-                </Button>
-              </div>
-            ))}
+              ))}
 
-            {journal.length === 0 && <p>No entries yet. Encourage learners to capture their findings.</p>}
+            {journal.length === 0 && (
+              <p>No entries yet. Encourage learners to capture their findings.</p>
+            )}
           </Stack>
         </Card>
       </Stack>
@@ -71,14 +76,14 @@ const EducatorDashboard: React.FC<EducatorDashboardProps> = ({ journal, go }) =>
 const heatmapStyle: React.CSSProperties = {
   display: 'grid',
   gridTemplateColumns: 'repeat(6, 40px)',
-  gap: 'var(--space-2)'
+  gap: 'var(--space-2)',
 };
 
 const heatmapCellStyle: React.CSSProperties = {
   width: 40,
   height: 40,
   borderRadius: 'var(--radius-base)',
-  background: 'var(--color-light-green)'
+  background: 'var(--color-light-green)',
 };
 
 const recentRowStyle: React.CSSProperties = {
@@ -87,7 +92,7 @@ const recentRowStyle: React.CSSProperties = {
   alignItems: 'center',
   padding: 'var(--space-2)',
   borderRadius: 'var(--radius-base)',
-  background: 'rgba(11, 61, 50, 0.08)'
+  background: 'rgba(11, 61, 50, 0.08)',
 };
 
 const countStandards = (entries: JournalEntryType[]): number => {

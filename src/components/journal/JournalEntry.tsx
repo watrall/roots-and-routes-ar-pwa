@@ -13,7 +13,7 @@ const STANDARDS = [
   'NGSS: HS-LS4-5',
   'NGSS: MS-PS1-2',
   'NGSS: HS-ESS3-1',
-  'C3: D2.Geo/D2.His'
+  'C3: D2.Geo/D2.His',
 ] as const;
 
 export type JournalEntryProps = {
@@ -64,15 +64,15 @@ const JournalEntry: React.FC<JournalEntryProps> = ({ plant, addJournalEntry, go 
           'Plant Name': plantName,
           Route: route,
           Notes: notes,
-          Standards: standards.join('; ')
-        }
+          Standards: standards.join('; '),
+        },
       ]),
-    [notes, plantName, route, standards]
+    [notes, plantName, route, standards],
   );
 
   const handleToggleStandard = (standard: string) => {
     setStandards((prev) =>
-      prev.includes(standard) ? prev.filter((item) => item !== standard) : [...prev, standard]
+      prev.includes(standard) ? prev.filter((item) => item !== standard) : [...prev, standard],
     );
   };
 
@@ -86,7 +86,7 @@ const JournalEntry: React.FC<JournalEntryProps> = ({ plant, addJournalEntry, go 
       plantName: plantName.trim(),
       route,
       notes: notes.trim(),
-      standards: standards.length > 0 ? standards : undefined
+      standards: standards.length > 0 ? standards : undefined,
     });
     go('journal-list');
   };
@@ -149,7 +149,7 @@ const JournalEntry: React.FC<JournalEntryProps> = ({ plant, addJournalEntry, go 
               style={{
                 ...inputStyle,
                 minHeight: '160px',
-                resize: 'vertical'
+                resize: 'vertical',
               }}
             />
             <HStack gap="sm">
@@ -198,7 +198,7 @@ const labelStyle: React.CSSProperties = {
   display: 'flex',
   flexDirection: 'column',
   gap: 'var(--space-1)',
-  fontWeight: 'var(--font-weight-medium)'
+  fontWeight: 'var(--font-weight-medium)',
 };
 
 const fieldsetStyle: React.CSSProperties = {
@@ -207,7 +207,7 @@ const fieldsetStyle: React.CSSProperties = {
   padding: 'var(--space-2)',
   display: 'flex',
   flexDirection: 'column',
-  gap: 'var(--space-2)'
+  gap: 'var(--space-2)',
 };
 
 const chipLabelStyle = (active: boolean): React.CSSProperties => ({
@@ -216,14 +216,14 @@ const chipLabelStyle = (active: boolean): React.CSSProperties => ({
   border: active ? '1px solid var(--color-light-green)' : '1px solid var(--color-border)',
   background: active ? 'rgba(22, 139, 95, 0.12)' : 'transparent',
   color: active ? 'var(--color-light-green)' : 'var(--color-text-primary)',
-  cursor: 'pointer'
+  cursor: 'pointer',
 });
 
 const inputStyle: React.CSSProperties = {
   padding: 'var(--space-2)',
   borderRadius: 'var(--radius-base)',
   border: '1px solid var(--color-border)',
-  font: 'inherit'
+  font: 'inherit',
 };
 
 export default JournalEntry;

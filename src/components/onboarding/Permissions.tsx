@@ -39,7 +39,7 @@ const Permissions: React.FC<PermissionsProps> = ({ go, setCameraGranted }) => {
           style={{
             background: 'var(--color-clay-neutral)',
             paddingInline: 'var(--space-3)',
-            paddingBlock: 'var(--space-4)'
+            paddingBlock: 'var(--space-4)',
           }}
         >
           <Stack gap="md" align="center">
@@ -50,12 +50,18 @@ const Permissions: React.FC<PermissionsProps> = ({ go, setCameraGranted }) => {
                 borderRadius: 'var(--radius-full)',
                 background: 'rgba(11, 61, 50, 0.12)',
                 display: 'grid',
-                placeItems: 'center'
+                placeItems: 'center',
               }}
             >
               <Icon name="camera" size={48} />
             </div>
-            <p style={{ maxWidth: '36ch', textAlign: 'center', color: 'var(--color-text-secondary)' }}>
+            <p
+              style={{
+                maxWidth: '36ch',
+                textAlign: 'center',
+                color: 'var(--color-text-secondary)',
+              }}
+            >
               We only use your camera when you begin a scan. No images are stored or shared.
             </p>
           </Stack>

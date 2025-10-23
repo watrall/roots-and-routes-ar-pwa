@@ -6,7 +6,7 @@ const GAP_MAP: Record<StackGap, string> = {
   xs: 'var(--space-1)',
   sm: 'var(--space-2)',
   md: 'var(--space-3)',
-  lg: 'var(--space-4)'
+  lg: 'var(--space-4)',
 };
 
 export type HStackProps = {
@@ -50,7 +50,7 @@ const HStack: React.FC<HStackProps> = ({
   wrap = false,
   as: Component = 'div',
   className,
-  children
+  children,
 }) => {
   return (
     <Component
@@ -61,7 +61,7 @@ const HStack: React.FC<HStackProps> = ({
         alignItems: align,
         justifyContent: justify,
         gap: GAP_MAP[gap],
-        flexWrap: wrap ? 'wrap' : 'nowrap'
+        flexWrap: wrap ? 'wrap' : 'nowrap',
       }}
     >
       {children}

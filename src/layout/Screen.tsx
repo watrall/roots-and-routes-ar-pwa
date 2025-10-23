@@ -39,7 +39,7 @@ const Screen: React.FC<ScreenProps> = ({
   header,
   children,
   bottomNav,
-  skipLinkLabel = 'Skip to content'
+  skipLinkLabel = 'Skip to content',
 }) => {
   const headingId = useId();
   const mainUniqueId = useId();
@@ -51,7 +51,7 @@ const Screen: React.FC<ScreenProps> = ({
         minHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
-        background: 'var(--color-surface)'
+        background: 'var(--color-surface)',
       }}
     >
       <a className="skip-link" href={`#${mainId}`}>
@@ -66,7 +66,7 @@ const Screen: React.FC<ScreenProps> = ({
         style={{
           flex: '1 1 auto',
           paddingInline: 'var(--space-3)',
-          paddingBlock: 'var(--space-4)'
+          paddingBlock: 'var(--space-4)',
         }}
       >
         <Container width="md" padding="none">
@@ -78,11 +78,7 @@ const Screen: React.FC<ScreenProps> = ({
           >
             {title}
           </h1>
-          {description && (
-            <p style={{ marginBottom: 'var(--space-4)' }}>
-              {description}
-            </p>
-          )}
+          {description && <p style={{ marginBottom: 'var(--space-4)' }}>{description}</p>}
           {children}
         </Container>
       </main>
@@ -94,7 +90,7 @@ const Screen: React.FC<ScreenProps> = ({
             borderTop: '1px solid var(--color-border)',
             background: 'var(--color-surface-elevated)',
             paddingInline: 'var(--space-3)',
-            paddingBlock: 'calc(var(--space-2) + 2px)'
+            paddingBlock: 'calc(var(--space-2) + 2px)',
           }}
         >
           <Container width="md" padding="none">

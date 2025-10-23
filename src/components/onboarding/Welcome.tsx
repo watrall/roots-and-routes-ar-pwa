@@ -26,7 +26,7 @@ const Welcome: React.FC<WelcomeProps> = ({ go }) => {
         background: 'linear-gradient(180deg, rgba(11, 61, 50, 0.96), rgba(5, 20, 15, 0.96))',
         color: 'var(--color-text-inverse)',
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
       }}
     >
       <a className="skip-link" href={`#${mainId}`}>
@@ -37,7 +37,7 @@ const Welcome: React.FC<WelcomeProps> = ({ go }) => {
         style={{
           flex: '1 1 auto',
           display: 'flex',
-          alignItems: 'center'
+          alignItems: 'center',
         }}
       >
         <Container width="md" padding="lg">
@@ -50,7 +50,7 @@ const Welcome: React.FC<WelcomeProps> = ({ go }) => {
                 background: 'rgba(242, 183, 5, 0.2)',
                 display: 'grid',
                 placeItems: 'center',
-                marginBottom: 'var(--space-3)'
+                marginBottom: 'var(--space-3)',
               }}
               aria-hidden
             >
@@ -64,7 +64,7 @@ const Welcome: React.FC<WelcomeProps> = ({ go }) => {
                   placeItems: 'center',
                   color: 'var(--color-dark-green)',
                   fontWeight: 'var(--font-weight-bold)',
-                  fontSize: '1.5rem'
+                  fontSize: '1.5rem',
                 }}
               >
                 🌿
@@ -72,15 +72,12 @@ const Welcome: React.FC<WelcomeProps> = ({ go }) => {
             </div>
 
             <Stack gap="sm">
-              <h1
-                data-screen-heading
-                tabIndex={-1}
-                style={{ color: 'var(--color-text-inverse)' }}
-              >
+              <h1 data-screen-heading tabIndex={-1} style={{ color: 'var(--color-text-inverse)' }}>
                 Roots & Routes AR
               </h1>
               <p style={{ color: 'rgba(255,255,255,0.82)', maxWidth: '32ch' }}>
-                Discover living cultural stories and STEM insights by exploring the plants around you.
+                Discover living cultural stories and STEM insights by exploring the plants around
+                you.
               </p>
             </Stack>
 
@@ -88,7 +85,7 @@ const Welcome: React.FC<WelcomeProps> = ({ go }) => {
               aria-hidden
               style={{
                 display: 'flex',
-                gap: 'var(--space-2)'
+                gap: 'var(--space-2)',
               }}
             >
               {Array.from({ length: PROGRESS_STEPS }).map((_, index) => (
@@ -99,17 +96,13 @@ const Welcome: React.FC<WelcomeProps> = ({ go }) => {
                     height: 12,
                     borderRadius: 'var(--radius-full)',
                     background: index === 0 ? 'var(--color-accent-gold)' : 'rgba(255,255,255,0.28)',
-                    display: 'inline-block'
+                    display: 'inline-block',
                   }}
                 />
               ))}
             </div>
 
-            <Button
-              variant="primary"
-              size="lg"
-              onClick={() => go('permissions')}
-            >
+            <Button variant="primary" size="lg" onClick={() => go('permissions')}>
               Start Setup
             </Button>
           </Stack>

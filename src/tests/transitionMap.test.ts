@@ -21,7 +21,7 @@ const ALLOWED_TRANSITIONS: Record<Screen, Screen[]> = {
     'offline',
     'no-plant',
     'poster',
-    'welcome'
+    'welcome',
   ],
   'scan-idle': ['scan-detecting', 'home', 'error-camera', 'no-plant'],
   'scan-detecting': ['scan-detected', 'scan-idle', 'home'],
@@ -36,7 +36,7 @@ const ALLOWED_TRANSITIONS: Record<Screen, Screen[]> = {
   'error-camera': ['settings', 'home', 'permissions'],
   offline: ['home', 'journal-list', 'journal-entry'],
   'no-plant': ['scan-idle', 'home'],
-  poster: ['home', 'scan-idle']
+  poster: ['home', 'scan-idle'],
 };
 
 describe('Screen transition map', () => {

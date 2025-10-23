@@ -1,7 +1,7 @@
 const TEXT_SCALE_MAP: Record<'normal' | 'large' | 'xl', string> = {
   normal: '1',
   large: '1.15',
-  xl: '1.3'
+  xl: '1.3',
 };
 
 const DEFAULT_TEXT_SCALE = 'normal';
@@ -54,10 +54,7 @@ export const enableDarkMode = (enabled: boolean, root?: HTMLElement): void => {
  * @param size Desired text size scale.
  * @param root Optional root element; defaults to `document.documentElement` when available.
  */
-export const setTextScale = (
-  size: 'normal' | 'large' | 'xl',
-  root?: HTMLElement
-): void => {
+export const setTextScale = (size: 'normal' | 'large' | 'xl', root?: HTMLElement): void => {
   const target = resolveRoot(root);
 
   if (!target) {

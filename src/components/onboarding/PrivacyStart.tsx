@@ -10,7 +10,7 @@ import { Screen as ScreenType } from '../../lib/types';
 const PRIVACY_POINTS = [
   'No photos or location data leave your device.',
   'Journal entries save to your device for offline learning.',
-  'Optional analytics will always be opt-in when available.'
+  'Optional analytics will always be opt-in when available.',
 ];
 
 export type PrivacyStartProps = {
@@ -44,7 +44,7 @@ const PrivacyStart: React.FC<PrivacyStartProps> = ({ go }) => {
                     background: 'rgba(22, 139, 95, 0.12)',
                     color: 'var(--color-light-green)',
                     alignItems: 'center',
-                    justifyContent: 'center'
+                    justifyContent: 'center',
                   }}
                 >
                   <Icon name="leaf" size={16} />

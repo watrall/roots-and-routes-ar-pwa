@@ -21,7 +21,7 @@ const Settings: React.FC<SettingsProps> = ({
   theme,
   setTheme,
   resetApp,
-  go
+  go,
 }) => {
   return (
     <Screen
@@ -115,8 +115,8 @@ const Settings: React.FC<SettingsProps> = ({
         <Card title="Danger zone">
           <Stack gap="sm">
             <p style={{ margin: 0 }}>
-              Resetting clears onboarding progress, accessibility preferences, and journals from this
-              device.
+              Resetting clears onboarding progress, accessibility preferences, and journals from
+              this device.
             </p>
             <Button variant="destructive" onClick={resetApp}>
               Reset App
@@ -131,7 +131,7 @@ const Settings: React.FC<SettingsProps> = ({
 const labelStyle: React.CSSProperties = {
   display: 'flex',
   alignItems: 'center',
-  gap: 'var(--space-2)'
+  gap: 'var(--space-2)',
 };
 
 const navButtonStyle = (active: boolean): React.CSSProperties => ({
@@ -142,7 +142,7 @@ const navButtonStyle = (active: boolean): React.CSSProperties => ({
   border: 'none',
   color: active ? 'var(--color-light-green)' : 'var(--color-text-secondary)',
   fontWeight: active ? 'var(--font-weight-bold)' : 'var(--font-weight-regular)',
-  cursor: 'pointer'
+  cursor: 'pointer',
 });
 
 export default Settings;
