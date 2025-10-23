@@ -44,3 +44,17 @@ export type JournalEntryType = {
   photos?: string[];
   standards?: string[];
 };
+
+/**
+ * Rich plant metadata captured during scanning.
+ */
+export type PlantDetails = {
+  id: string;
+  name: string;
+  commonName?: string;
+  family?: string;
+  origin?: string;
+  thumbnail?: string;
+  culturalStory?: string;
+  stemInfo?: string;
+};

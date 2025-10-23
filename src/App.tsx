@@ -2,6 +2,7 @@ import React, { Dispatch, useCallback, useEffect, useMemo, useState } from 'reac
 import {
   AccessibilitySettings,
   JournalEntryType,
+  PlantDetails,
   Screen
 } from './lib/types';
 import {
@@ -17,19 +18,11 @@ import Home from './components/Home';
 import ScreenLayout from './layout/Screen';
 import Stack from './layout/Stack';
 import Button from './ui/Button';
+import ScanIdle from './components/scan/ScanIdle';
+import ScanDetecting from './components/scan/ScanDetecting';
+import ScanDetected from './components/scan/ScanDetected';
 
 type ThemeMode = 'light' | 'dark';
-
-type PlantDetails = {
-  id: string;
-  name: string;
-  commonName?: string;
-  family?: string;
-  origin?: string;
-  thumbnail?: string;
-  culturalStory?: string;
-  stemInfo?: string;
-};
 
 type ScreenContext = {
   go: (screen: Screen) => void;
@@ -226,6 +219,10 @@ const App: React.FC = () => {
     setCameraGranted(granted);
   }, []);
 
+  const handlePlantDetected = useCallback((plant: PlantDetails) => {
+    setCurrentPlant(plant);
+  }, []);
+
   useEffect(() => {
     if (typeof window === 'undefined') {
       return;
@@ -408,6 +405,27 @@ const App: React.FC = () => {
           );
         case 'privacy':
           return <PrivacyStart go={go} />;
+        case 'scan-idle':
+          return (
+            <ScanIdle
+              go={go}
+              cameraGranted={cameraGranted}
+            />
+          );
+        case 'scan-detecting':
+          return (
+            <ScanDetecting
+              go={go}
+              setCurrentPlant={handlePlantDetected}
+            />
+          );
+        case 'scan-detected':
+          return (
+            <ScanDetected
+              go={go}
+              currentPlant={currentPlant}
+            />
+          );
         case 'home':
           return (
             <Home
@@ -430,6 +448,9 @@ const App: React.FC = () => {
     [
       accessibility,
       go,
+      cameraGranted,
+      currentPlant,
+      handlePlantDetected,
       theme,
       screenContext,
       setAccessibilityState,
