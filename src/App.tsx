@@ -23,6 +23,10 @@ import ScanDetecting from './components/scan/ScanDetecting';
 import ScanDetected from './components/scan/ScanDetected';
 import PlantView from './components/routes/PlantView';
 import TimeShiftSimulation from './components/TimeShiftSimulation';
+import JournalList from './components/journal/JournalList';
+import JournalEntry from './components/journal/JournalEntry';
+import Settings from './components/Settings';
+import EducatorDashboard from './components/EducatorDashboard';
 
 type ThemeMode = 'light' | 'dark';
 
@@ -244,6 +248,19 @@ const App: React.FC = () => {
     []
   );
 
+  const resetApp = useCallback(() => {
+    setCurrentScreen('welcome');
+    setAccessibility(DEFAULT_ACCESSIBILITY);
+    setCameraGranted(false);
+    setJournal([]);
+    setCurrentPlant(null);
+    setTheme('light');
+    localStorage.removeItem(STORAGE_KEYS.accessibility);
+    localStorage.removeItem(STORAGE_KEYS.camera);
+    localStorage.removeItem(STORAGE_KEYS.journal);
+    localStorage.removeItem(STORAGE_KEYS.theme);
+  }, []);
+
   useEffect(() => {
     if (typeof window === 'undefined') {
       return;
@@ -464,6 +481,39 @@ const App: React.FC = () => {
               addJournalEntry={addJournalEntry}
             />
           );
+        case 'journal-list':
+          return (
+            <JournalList
+              entries={journal}
+              go={go}
+            />
+          );
+        case 'journal-entry':
+          return (
+            <JournalEntry
+              plant={currentPlant}
+              addJournalEntry={addJournalEntry}
+              go={go}
+            />
+          );
+        case 'settings':
+          return (
+            <Settings
+              accessibility={accessibility}
+              updateAccessibility={updateAccessibility}
+              theme={theme}
+              setTheme={setThemeMode}
+              resetApp={resetApp}
+              go={go}
+            />
+          );
+        case 'educator':
+          return (
+            <EducatorDashboard
+              journal={journal}
+              go={go}
+            />
+          );
         case 'home':
           return (
             <Home
@@ -490,6 +540,8 @@ const App: React.FC = () => {
       currentPlant,
       handlePlantDetected,
       addJournalEntry,
+      journal,
+      resetApp,
       theme,
       screenContext,
       setAccessibilityState,
