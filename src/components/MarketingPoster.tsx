@@ -1,5 +1,4 @@
 import React from 'react';
-import Stack from '../layout/Stack';
 import HStack from '../layout/HStack';
 import Card from '../ui/Card';
 
