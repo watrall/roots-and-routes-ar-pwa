@@ -67,7 +67,12 @@ const Screen: React.FC<ScreenProps> = ({
         }}
       >
         <Container width="md" padding="none">
-          <h1 id={headingId} style={{ marginBottom: 'var(--space-3)' }}>
+          <h1
+            id={headingId}
+            data-screen-heading
+            tabIndex={-1}
+            style={{ marginBottom: 'var(--space-3)' }}
+          >
             {title}
           </h1>
           {description && (

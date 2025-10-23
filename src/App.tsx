@@ -1,4 +1,4 @@
-import React, { Dispatch, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { Dispatch, useCallback, useEffect, useMemo, useState } from 'react';
 import {
   AccessibilitySettings,
   JournalEntryType,
@@ -9,6 +9,13 @@ import {
   setTextScale,
   toggleHighContrast
 } from './lib/theme';
+import Welcome from './components/onboarding/Welcome';
+import Permissions from './components/onboarding/Permissions';
+import AccessibilitySetup from './components/onboarding/AccessibilitySetup';
+import PrivacyStart from './components/onboarding/PrivacyStart';
+import ScreenLayout from './layout/Screen';
+import Stack from './layout/Stack';
+import Button from './ui/Button';
 
 type ThemeMode = 'light' | 'dark';
 
@@ -36,11 +43,6 @@ type ScreenContext = {
   setJournal: Dispatch<React.SetStateAction<JournalEntryType[]>>;
   currentPlant: PlantDetails | null;
   setCurrentPlant: Dispatch<React.SetStateAction<PlantDetails | null>>;
-};
-
-type ScreenRender = {
-  title: string;
-  body: React.ReactNode;
 };
 
 type ScreenPlaceholderProps = {
@@ -158,40 +160,36 @@ const isJournalEntry = (value: unknown): value is JournalEntryType => {
 const isJournalEntryArray = (value: unknown): value is JournalEntryType[] =>
   Array.isArray(value) && value.every(isJournalEntry);
 
-const ScreenPlaceholder: React.FC<ScreenPlaceholderProps> = ({
-  screen,
-  description,
-  context
-}) => {
+const ScreenPlaceholder: React.FC<ScreenPlaceholderProps> = ({ screen, description, context }) => {
   const allowedTargets = useMemo(() => ALLOWED_TRANSITIONS[screen] ?? [], [screen]);
 
   return (
-    <section>
-      <p>
-        {description ??
-          'This screen is under construction. The navigation below helps confirm routing works.'}
-      </p>
-      {allowedTargets.length > 0 && (
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '1rem' }}>
-          {allowedTargets.map((target) => (
-            <button
-              key={target}
-              type="button"
-              onClick={() => context.go(target)}
-              style={{
-                padding: '0.75rem 1rem',
-                borderRadius: '12px',
-                background: 'var(--color-light-green)',
-                color: 'var(--color-text-inverse)',
-                border: 'none'
-              }}
-            >
-              Go to {SCREEN_HEADINGS[target]}
-            </button>
-          ))}
-        </div>
-      )}
-    </section>
+    <ScreenLayout
+      title={SCREEN_HEADINGS[screen]}
+      description={
+        description ??
+        'This screen is under construction. Use the navigation buttons below to move through the flow.'
+      }
+    >
+      <Stack gap="md">
+        {allowedTargets.length > 0 && (
+          <Stack gap="sm">
+            <p style={{ margin: 0 }}>Available routes from this screen:</p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--space-2)' }}>
+              {allowedTargets.map((target) => (
+                <Button
+                  key={target}
+                  variant="secondary"
+                  onClick={() => context.go(target)}
+                >
+                  Go to {SCREEN_HEADINGS[target]}
+                </Button>
+              ))}
+            </div>
+          </Stack>
+        )}
+      </Stack>
+    </ScreenLayout>
   );
 };
 
@@ -199,7 +197,6 @@ const ScreenPlaceholder: React.FC<ScreenPlaceholderProps> = ({
  * Root application component controlling navigation, persistence, and accessibility state.
  */
 const App: React.FC = () => {
-  const headingRef = useRef<HTMLHeadingElement | null>(null);
   const [currentScreen, setCurrentScreen] = useState<Screen>('welcome');
   const [accessibility, setAccessibility] = useState<AccessibilitySettings>(
     DEFAULT_ACCESSIBILITY
@@ -330,7 +327,8 @@ const App: React.FC = () => {
     }
 
     const frame = window.requestAnimationFrame(() => {
-      headingRef.current?.focus();
+      const heading = document.querySelector('[data-screen-heading]') as HTMLElement | null;
+      heading?.focus();
     });
 
     return () => window.cancelAnimationFrame(frame);
@@ -387,91 +385,91 @@ const App: React.FC = () => {
   );
 
   const renderScreen = useCallback(
-    (screen: Screen): ScreenRender => {
+    (screen: Screen): React.ReactNode => {
       switch (screen) {
         case 'welcome':
-          return {
-            title: SCREEN_HEADINGS[screen],
-            body: (
-              <ScreenPlaceholder
-                screen={screen}
-                description="Welcome to Roots & Routes AR. The onboarding flow will guide learners soon."
-                context={screenContext}
-              />
-            )
-          };
+          return <Welcome go={go} />;
         case 'permissions':
+          return (
+            <Permissions
+              go={go}
+              setCameraGranted={setCameraPermission}
+            />
+          );
         case 'accessibility':
+          return (
+            <AccessibilitySetup
+              accessibility={accessibility}
+              setAccessibility={setAccessibilityState}
+              updateAccessibility={updateAccessibility}
+              go={go}
+            />
+          );
         case 'privacy':
-        case 'scan-idle':
-        case 'scan-detecting':
-        case 'scan-detected':
-        case 'cultural':
-        case 'stem':
-        case 'simulation':
-        case 'journal-list':
-        case 'journal-entry':
-        case 'settings':
-        case 'educator':
-        case 'error-camera':
-        case 'offline':
-        case 'no-plant':
-        case 'poster':
-        case 'home':
+          return <PrivacyStart go={go} />;
         default:
-          return {
-            title: SCREEN_HEADINGS[screen],
-            body: (
-              <ScreenPlaceholder
-                screen={screen}
-                context={screenContext}
-              />
-            )
-          };
+          return (
+            <ScreenPlaceholder
+              screen={screen}
+              context={screenContext}
+            />
+          );
       }
     },
-    [screenContext]
+    [
+      accessibility,
+      go,
+      screenContext,
+      setAccessibilityState,
+      updateAccessibility,
+      setCameraPermission
+    ]
   );
 
-  const { title, body } = renderScreen(currentScreen);
+  const currentView = renderScreen(currentScreen);
 
   return (
     <>
-      <a className="skip-link" href="#main-content">
-        Skip to main content
-      </a>
-      <main id="main-content" style={{ padding: '1.5rem' }}>
-        <h1 ref={headingRef} tabIndex={-1}>
-          {title}
-        </h1>
-        <div>{body}</div>
-        {import.meta.env.DEV && (
-          <section style={{ marginTop: '2rem', fontSize: '0.875rem' }}>
-            <h2 style={{ marginBottom: '0.5rem' }}>Debug State</h2>
-            <pre
-              style={{
-                background: 'var(--color-surface-muted)',
-                padding: '1rem',
-                borderRadius: '12px',
-                overflow: 'auto'
-              }}
-            >
-              {JSON.stringify(
-                {
-                  currentScreen,
-                  accessibility,
-                  cameraGranted,
-                  theme,
-                  journalCount: journal.length,
-                  hasCurrentPlant: Boolean(currentPlant)
-                },
-                null,
-                2
-              )}
-            </pre>
-          </section>
-        )}
-      </main>
+      {currentView}
+      {import.meta.env.DEV && (
+        <aside
+          style={{
+            position: 'fixed',
+            right: 'var(--space-3)',
+            bottom: 'var(--space-3)',
+            width: 'min(360px, 90vw)',
+            background: 'var(--color-surface-elevated)',
+            borderRadius: 'var(--radius-base)',
+            boxShadow: 'var(--shadow-card)',
+            padding: 'var(--space-3)',
+            fontSize: '0.85rem',
+            maxHeight: '50vh',
+            overflow: 'auto',
+            border: '1px solid var(--color-border)'
+          }}
+        >
+          <strong>Debug State</strong>
+          <pre
+            style={{
+              margin: 'var(--space-2) 0 0',
+              whiteSpace: 'pre-wrap'
+            }}
+          >
+            {JSON.stringify(
+              {
+                currentScreen,
+                accessibility,
+                cameraGranted,
+                theme,
+                journalCount: journal.length,
+                hasCurrentPlant: Boolean(currentPlant)
+              },
+              null,
+              2
+            )}
+          </pre>
+        </aside>
+      )}
     </>
   );
 };
