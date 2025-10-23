@@ -28,6 +28,8 @@ export type ScreenProps = {
   skipLinkLabel?: string;
 };
 
+const DEFAULT_SKIP_TARGET = 'main-content';
+
 /**
  * Responsive app screen shell with skip-link, heading, and optional navigation regions.
  */
@@ -40,7 +42,8 @@ const Screen: React.FC<ScreenProps> = ({
   skipLinkLabel = 'Skip to content'
 }) => {
   const headingId = useId();
-  const mainId = useId();
+  const mainUniqueId = useId();
+  const mainId = `${DEFAULT_SKIP_TARGET}-${mainUniqueId}`;
 
   return (
     <div

@@ -13,6 +13,7 @@ import Welcome from './components/onboarding/Welcome';
 import Permissions from './components/onboarding/Permissions';
 import AccessibilitySetup from './components/onboarding/AccessibilitySetup';
 import PrivacyStart from './components/onboarding/PrivacyStart';
+import Home from './components/Home';
 import ScreenLayout from './layout/Screen';
 import Stack from './layout/Stack';
 import Button from './ui/Button';
@@ -407,6 +408,16 @@ const App: React.FC = () => {
           );
         case 'privacy':
           return <PrivacyStart go={go} />;
+        case 'home':
+          return (
+            <Home
+              go={go}
+              accessibility={accessibility}
+              updateAccessibility={updateAccessibility}
+              theme={theme}
+              setTheme={setThemeMode}
+            />
+          );
         default:
           return (
             <ScreenPlaceholder
@@ -419,10 +430,12 @@ const App: React.FC = () => {
     [
       accessibility,
       go,
+      theme,
       screenContext,
       setAccessibilityState,
       updateAccessibility,
-      setCameraPermission
+      setCameraPermission,
+      setThemeMode
     ]
   );
 
