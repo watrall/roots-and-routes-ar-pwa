@@ -1,0 +1,27 @@
+.dark {
+  color-scheme: dark;
+  --color-surface: var(--color-dark-green);
+  --color-surface-elevated: #0b3d32;
+  --color-surface-muted: #094033;
+  --color-border: rgba(237, 232, 224, 0.24);
+  --color-text-primary: #f5f1ea;
+  --color-text-secondary: rgba(237, 232, 224, 0.78);
+  --color-text-inverse: #052821;
+  --color-focus-ring: var(--color-accent-gold);
+  --shadow-card: 0 16px 40px rgba(0, 0, 0, 0.45);
+}
+
+.hc {
+  --color-border: rgba(5, 40, 33, 0.48);
+  --color-text-primary: #031b16;
+  --color-text-secondary: #0b3d32;
+  --color-focus-ring: var(--color-accent-gold);
+  --shadow-card: 0 0 0 2px rgba(5, 40, 33, 0.65);
+}
+
+.dark.hc {
+  --color-border: rgba(242, 183, 5, 0.8);
+  --color-text-primary: #ffffff;
+  --color-text-secondary: rgba(255, 255, 255, 0.88);
+  --shadow-card: 0 0 0 2px rgba(242, 183, 5, 0.8);
+}
