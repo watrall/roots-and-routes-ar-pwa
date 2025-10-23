@@ -22,6 +22,7 @@ import ScanIdle from './components/scan/ScanIdle';
 import ScanDetecting from './components/scan/ScanDetecting';
 import ScanDetected from './components/scan/ScanDetected';
 import PlantView from './components/routes/PlantView';
+import TimeShiftSimulation from './components/TimeShiftSimulation';
 
 type ThemeMode = 'light' | 'dark';
 
@@ -223,6 +224,25 @@ const App: React.FC = () => {
   const handlePlantDetected = useCallback((plant: PlantDetails) => {
     setCurrentPlant(plant);
   }, []);
+
+  const addJournalEntry = useCallback(
+    (entry: {
+      id: string;
+      plantName: string;
+      route: 'cultural' | 'stem';
+      notes: string;
+      standards?: string[];
+    }) => {
+      setJournal((prev) => [
+        ...prev,
+        {
+          ...entry,
+          date: new Date().toISOString()
+        }
+      ]);
+    },
+    []
+  );
 
   useEffect(() => {
     if (typeof window === 'undefined') {
@@ -436,6 +456,14 @@ const App: React.FC = () => {
               go={go}
             />
           );
+        case 'simulation':
+          return (
+            <TimeShiftSimulation
+              plant={currentPlant}
+              go={go}
+              addJournalEntry={addJournalEntry}
+            />
+          );
         case 'home':
           return (
             <Home
@@ -461,6 +489,7 @@ const App: React.FC = () => {
       cameraGranted,
       currentPlant,
       handlePlantDetected,
+      addJournalEntry,
       theme,
       screenContext,
       setAccessibilityState,
