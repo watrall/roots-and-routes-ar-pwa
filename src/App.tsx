@@ -21,6 +21,7 @@ import Button from './ui/Button';
 import ScanIdle from './components/scan/ScanIdle';
 import ScanDetecting from './components/scan/ScanDetecting';
 import ScanDetected from './components/scan/ScanDetected';
+import PlantView from './components/routes/PlantView';
 
 type ThemeMode = 'light' | 'dark';
 
@@ -424,6 +425,15 @@ const App: React.FC = () => {
             <ScanDetected
               go={go}
               currentPlant={currentPlant}
+            />
+          );
+        case 'cultural':
+        case 'stem':
+          return (
+            <PlantView
+              screen={screen}
+              plant={currentPlant}
+              go={go}
             />
           );
         case 'home':
